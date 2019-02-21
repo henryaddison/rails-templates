@@ -1,0 +1,54 @@
+# <%= app_name >
+
+## Dependencies
+
+* Ruby & Bundler
+See `.ruby-version` for version of Ruby.
+Advise using `rbenv` to manage Ruby versions on local development machine.
+
+* PostgreSQL database
+Use docker-compose config to manage in development.
+
+## Setup for development
+
+0. Clone this repo
+
+1. Configure:
+  * mainly with environment variables (see [[#configuration-environment-variables]] for more details of environment variables).
+  Create a suitable `.env` for your own machine based on committed `.env.example`.
+
+2. Clone down [landmrk-frontend](https://github.com/simpleweb/landmrk-frontend) into the root of this project
+
+3. `script/setup`
+
+
+### Configuration environment variables
+
+* `DATABASE_URL`
+
+## Basic Dev Usage
+
+Most common tasks are automated with scripts in the [[script]] directory.
+Please keep these up-to-date as the app changes or new tasks become common.
+
+**Server**: `script/serve`
+
+**Tests**: `script/test`
+
+**Console**: `script/console`
+
+**Update** (things like migrations):`script/update`
+
+## Deployment
+
+[See docs](docs/DevOps.md)
+
+## Styleguides
+
+The Ruby code uses [a modified version](.rubocop.yml) of the default Rubocop styleguide.
+
+The bash scripts that make up leeroy attempt to follow the [Google shell script styleguide](https://google.github.io/styleguide/shell).
+
+## Doc moar
+
+[Would you like to know more?](docs/)

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# script/server: Launch the application and any extra required processes
+#                locally.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+# ensure everything in the app is up to date.
+script/update
+
+# boot the app and any other necessary processes.
+echo "==> Starting services…"
+docker-compose up -d
+
+echo "==> Starting app…"
+bin/rails s

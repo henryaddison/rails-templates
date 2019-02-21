@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# script/update: Update application to run for its current checkout.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+script/bootstrap
+
+echo "==> Starting services…"
+docker-compose up -d
+
+echo "==> Updating db…"
+# run all database migrations to ensure everything is up to date.
+bin/rails db:migrate

@@ -10,6 +10,22 @@ end
 add_file 'Brewfile'
 run 'brew bundle'
 
+add_template '.ruby-version', ruby_version: '2.6.1'
+
+run 'rbenv install'
+
+gem_group :development, :test do
+  # help identify and catch n+1 queries
+  gem 'bullet'
+
+  gem 'factory_bot_rails'
+  gem 'faker'
+
+  # enforce code style
+  gem 'rubocop', '~> 0.64.0', require: false
+  gem 'rubocop-rspec', require: false
+end
+
 gem_group :development, :test do
   gem 'rspec-rails', '~> 3.8'
 end
@@ -31,10 +47,23 @@ after_bundle do
   )
 
   generate :devise, "User"
-
-  rails_command "db:migrate"
 end
 
-add_file 'README.md'
+add_template 'README.md', app_name: app_name
+add_file 'docs/README.md'
+
+add_file '.env.example'
+run 'cp .env.example .env'
+
+%w(bootstrap console serve setup test update).each do |script_name|
+  add_file "script/#{script_name}"
+  run "chmod +x script/#{script_name}"
+end
+
 add_file 'docker-compose.yml'
 add_template 'config/database.yml', app_name: app_name
+
+add_template '.rubocop.yml', ruby_version: '2.5'
+after_bundle do
+  run 'bundle exec rubocop'
+end

@@ -1,0 +1,71 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+  - db/schema.rb
+  - db/migrate/20180502153853_devise_create_users.rb
+  - config/environments/development.rb
+  - config/initializers/devise.rb
+  - bin/*
+  - spec/spec_helper.rb
+  - provisioning/**/*
+  - config/routes.rb
+  - tmp/**/*
+  - log/*
+  - coverage/**/*
+  - node_modules/**/*
+  TargetRubyVersion: <%= ruby_version %>
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Lint/ScriptPermission:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+Metrics/MethodLength:
+  Enabled: true
+  Max: 20
+
+Bundler/OrderedGems:
+  Enabled: false
+Rails:
+  Enabled: true
+Rails/NotNullColumn:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/ExampleLength:
+  Max: 15
+RSpec/NestedGroups:
+  Max: 5
+Style/Documentation:
+  Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+# check this against SW styleguide
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+# check this against SW styleguide
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+  EnforcedStyleForMultiline: comma
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/ClassAndModuleChildren:
+  AutoCorrect: true

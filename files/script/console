@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# script/console: Launch a console for the application.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+script/update
+
+echo "==> Starting services…"
+docker-compose up -d
+
+bin/rails console
