@@ -16,7 +16,7 @@ run 'rbenv install'
 
 gem_group :development, :test do
   # help identify and catch n+1 queries
-  gem 'bullet'
+  # gem 'bullet'
 
   gem 'factory_bot_rails'
   gem 'faker'
