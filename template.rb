@@ -43,6 +43,8 @@ end
 
 gem 'bugsnag'
 
+gem 'puma'
+
 gem 'dotenv-rails'
 add_file '.env.example'
 run 'cp .env.example .env'
