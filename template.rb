@@ -7,12 +7,17 @@ def add_template name, vars={}
   file name, template.result_with_hash(vars)
 end
 
+def source_paths
+  [File.join(__dir__, 'files')]
+end
+
+def ruby_version
+  '2.5.3'
+end
+
 add_file 'Brewfile'
-run 'brew bundle'
 
-add_template '.ruby-version', ruby_version: '2.6.1'
-
-run 'rbenv install'
+template '.ruby-version.erb', '.ruby-version'
 
 gem_group :development, :test do
   # help identify and catch n+1 queries
@@ -21,7 +26,6 @@ gem_group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
 
-  # enforce code style
   gem 'rubocop', '~> 0.64.0', require: false
   gem 'rubocop-rspec', require: false
 end
@@ -33,7 +37,6 @@ end
 after_bundle do
   run "spring stop"
   generate 'rspec:install'
-  run "rm -rf test"
 end
 
 gem 'devise'
@@ -49,21 +52,24 @@ after_bundle do
   generate :devise, "User"
 end
 
-add_template 'README.md', app_name: app_name
-add_file 'docs/README.md'
+gem 'bugsnag'
 
+gem 'dotenv-rails'
 add_file '.env.example'
 run 'cp .env.example .env'
+
+add_file 'docker-compose.yml'
+template 'config/database.yml.erb', 'config/database.yml'
 
 %w(bootstrap console serve setup test update).each do |script_name|
   add_file "script/#{script_name}"
   run "chmod +x script/#{script_name}"
 end
 
-add_file 'docker-compose.yml'
-add_template 'config/database.yml', app_name: app_name
+template 'README.md.erb', 'README.md'
+add_file 'docs/README.md'
 
-add_template '.rubocop.yml', ruby_version: '2.5'
+template '.rubocop.yml.erb', '.rubocop.yml'
 after_bundle do
-  run 'bundle exec rubocop'
+  run 'bundle exec rubocop --auto-correct'
 end
