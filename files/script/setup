@@ -13,4 +13,5 @@ echo "==> Starting services…"
 docker-compose up -d
 
 echo "==> Setting up DB…"
+bin/rails db:migrate
 bin/rails db:setup
