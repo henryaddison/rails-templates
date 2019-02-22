@@ -2,11 +2,6 @@ def add_file name
   file name, File.read(File.join(__dir__, 'files', name))  
 end
 
-def add_template name, vars={}
-  template = ERB.new(File.read(File.join(__dir__, 'templates', "#{name}.erb")))
-  file name, template.result_with_hash(vars)
-end
-
 def source_paths
   [File.join(__dir__, 'files')]
 end
