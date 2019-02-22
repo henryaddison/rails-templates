@@ -1,12 +1,8 @@
-def add_file name
-  file name, File.read(File.join(__dir__, 'files', name))  
-end
-
 def source_paths
   [File.join(__dir__, 'files')]
 end
 
-add_file 'Brewfile'
+copy_file 'Brewfile'
 
 gem_group :development, :test do
   # help identify and catch n+1 queries
@@ -46,19 +42,19 @@ gem 'bugsnag'
 gem 'puma'
 
 gem 'dotenv-rails'
-add_file '.env.example'
+copy_file '.env.example'
 run 'cp .env.example .env'
 
-add_file 'docker-compose.yml'
+copy_file 'docker-compose.yml'
 template 'config/database.yml.erb', 'config/database.yml'
 
 %w(bootstrap console serve setup test update).each do |script_name|
-  add_file "script/#{script_name}"
+  copy_file "script/#{script_name}"
   run "chmod +x script/#{script_name}"
 end
 
 template 'README.md.erb', 'README.md'
-add_file 'docs/README.md'
+copy_file 'docs/README.md'
 
 template '.rubocop.yml.erb', '.rubocop.yml'
 after_bundle do
