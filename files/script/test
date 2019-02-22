@@ -39,3 +39,6 @@ if [ -n "$1" ]; then
 else
   bin/rake test
 fi
+
+echo "==> Checking with cops…"
+bundle exec rubocop
