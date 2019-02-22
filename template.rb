@@ -11,13 +11,7 @@ def source_paths
   [File.join(__dir__, 'files')]
 end
 
-def ruby_version
-  '2.5.3'
-end
-
 add_file 'Brewfile'
-
-template '.ruby-version.erb', '.ruby-version'
 
 gem_group :development, :test do
   # help identify and catch n+1 queries
