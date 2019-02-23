@@ -24,19 +24,6 @@ after_bundle do
   generate 'rspec:install'
 end
 
-gem 'devise'
-
-after_bundle do
-  generate 'devise:install'
-
-  environment(
-    'config.action_mailer.default_url_options = {host: "localhost", port: 3000}',
-    env: 'development'
-  )
-
-  generate :devise, "User"
-end
-
 gem 'bugsnag'
 
 gem 'puma'
@@ -51,6 +38,24 @@ template 'config/database.yml.erb', 'config/database.yml'
 %w(bootstrap console serve setup test update).each do |script_name|
   copy_file "script/#{script_name}"
   run "chmod +x script/#{script_name}"
+end
+
+after_bundle do
+  generate :controller, "home index --no-view-specs --no-helper-specs --skip-routes --no-helper --test-framework=rspec"
+  route "root to: 'home#index'"
+end
+
+gem 'devise'
+
+after_bundle do
+  generate 'devise:install'
+
+  environment(
+    'config.action_mailer.default_url_options = {host: "localhost", port: 3000}',
+    env: 'development'
+  )
+
+  generate :devise, "User"
 end
 
 template 'README.md.erb', 'README.md'
