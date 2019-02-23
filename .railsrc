@@ -1,1 +1,1 @@
---template template.rb --database postgresql --skip-test --skip-turbolinks --force
+--template template.rb --database postgresql --skip-test --skip-turbolinks
