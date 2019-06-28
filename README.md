@@ -1,4 +1,4 @@
-# rails-templates
-Some handy Rails templates
+# rails_template
+A handy Rails template
 
 Usage: `rails new --rc=.railsrc new-app`
